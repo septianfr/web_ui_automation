@@ -1,0 +1,59 @@
+package StepDefinitions;
+
+import static org.junit.jupiter.api.Assertions.assertTrue;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.chrome.ChromeDriver;
+
+import io.cucumber.java.Before;
+import io.cucumber.java.en.And;
+import io.cucumber.java.en.Given;
+import io.cucumber.java.en.Then;
+import io.cucumber.java.en.When;
+import page.loginPage;
+
+public class loginTest {
+
+    WebDriver driver;
+    loginPage login;
+
+    @Before
+    public void setup(){
+        driver = new ChromeDriver();
+        driver.manage().window().maximize();
+        login = new loginPage(driver);
+    }
+
+    @Given("the user is on the login page")
+    public void userOnLoginPage() {
+        driver.get("https://www.saucedemo.com/");
+    }
+
+    @When("the user input valid username {string} and password {string}")
+    @When("the user input invalid username {string} and password {string}")
+        public void inputUsernamePassword(String username, String password) {
+        login.inputUsername(username);
+        login.inputPassword(password);
+    }
+
+    @When("the user leave the username empty and password {string}")
+        public void leaveUsernameEmpty(String password) {
+        login.inputUsername("");
+        login.inputPassword(password);
+    }
+
+    @And("the user click the login button")
+        public void userClickButton(){
+            login.clickLoginButton();
+        }
+    
+    @Then("the user successfully login to the inventory page")
+        public void user_successfully_logged_in() {
+            assertTrue(driver.getCurrentUrl().contains("inventory.html"));
+        }
+
+    @Then("the user will see an error message {string}")
+        public void user_sees_error_message(String expectedMessage) {
+            String actualMessage = login.getMessage();
+            assertTrue(actualMessage.toLowerCase().contains(expectedMessage.toLowerCase()));
+        }
+}
