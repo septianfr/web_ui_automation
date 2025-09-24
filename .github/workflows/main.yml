@@ -25,7 +25,13 @@ jobs:
         uses: browser-actions/setup-chrome@v2
         with:
           chrome-version: 'stable'
-          distribution: 'google-chrome-stable'
+
+      - name: Use Gradle 7.4
+        run: |
+          wget https://services.gradle.org/distributions/gradle-7.4-bin.zip
+          unzip gradle-7.4-bin.zip
+          export PATH=$PWD/gradle-7.4/bin:$PATH
+          gradle -v
 
       - name: Set up Gradle
         run: chmod +x gradlew
