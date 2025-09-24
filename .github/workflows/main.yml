@@ -13,7 +13,7 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v2
 
       - name: Set up Java
         uses: actions/setup-java@v2
@@ -25,6 +25,7 @@ jobs:
         uses: browser-actions/setup-chrome@v2
         with:
           chrome-version: 'stable'
+          distribution: 'google-chrome-stable'
 
       - name: Set up Gradle
         run: chmod +x gradlew
