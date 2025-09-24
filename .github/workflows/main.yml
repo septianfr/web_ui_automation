@@ -18,8 +18,8 @@ jobs:
       - name: Set up Java
         uses: actions/setup-java@v2
         with:
-          java-version: '24'
-          distribution: 'temurin'
+          java-version: '21'
+          distribution: 'adoptopenjdk'
 
       - name: Set up Google Chrome
         uses: browser-actions/setup-chrome@v2
@@ -31,4 +31,4 @@ jobs:
         run: chmod +x gradlew
 
       - name: Run tests with Gradle
-        run: ./gradlew clean test
+        run: ./gradlew test --stacktrace --info --debug
