@@ -18,7 +18,16 @@ public class loginTest {
 
     @Before
     public void setup(){
-        driver = new ChromeDriver();
+        ChromeOptions options = new ChromeOptions();
+        options.addArguments("--headless=new"); // headless mode (wajib di CI)
+        options.addArguments("--no-sandbox"); // bypass OS security model
+        options.addArguments("--disable-dev-shm-usage"); // avoid limited resource in /dev/shm
+        options.addArguments("--disable-gpu");
+        options.addArguments("--disable-notifications");
+        options.addArguments("--remote-allow-origins=*");
+        options.addArguments("--user-data-dir=/tmp/chrome-profile-" + System.currentTimeMillis());
+
+        driver = new ChromeDriver(options);
         driver.manage().window().maximize();
         login = new loginPage(driver);
     }
