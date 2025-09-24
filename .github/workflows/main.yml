@@ -30,8 +30,5 @@ jobs:
       - name: Set up Gradle
         run: chmod +x gradlew
 
-      - name: Install dependencies
-        run: ./gradlew clean build
-
       - name: Run tests with Gradle
-        run: ./gradlew test
+        run: ./gradlew clean test
